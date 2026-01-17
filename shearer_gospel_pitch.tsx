@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, DollarSign, Film, Users, Award, TrendingUp, Heart } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, DollarSign, Film, Users, Award, Heart } from 'lucide-react';
 
 const PitchDeck = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -345,49 +345,56 @@ const PitchDeck = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    };
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentSlide]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-8">
       <div className="max-w-5xl mx-auto">
-        {/* Slide Container */}
-        <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] relative">
+        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-12 min-h-[500px] sm:min-h-[600px] relative">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">{slides[currentSlide].title}</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-2">{slides[currentSlide].title}</h1>
             {slides[currentSlide].subtitle && (
-              <h2 className="text-2xl text-gray-600">{slides[currentSlide].subtitle}</h2>
+              <h2 className="text-xl sm:text-2xl text-gray-600">{slides[currentSlide].subtitle}</h2>
             )}
           </div>
 
-          <div className="mb-12">
+          <div className="mb-12 sm:mb-16">
             {slides[currentSlide].content}
           </div>
 
-          {/* Navigation */}
-          <div className="absolute bottom-8 left-12 right-12 flex justify-between items-center">
+          <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-12 right-4 sm:right-12 flex justify-between items-center">
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition"
+              className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition text-sm sm:text-base"
             >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Previous</span>
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">Previous</span>
             </button>
 
-            <div className="text-sm text-gray-500">
+            <div className="text-xs sm:text-sm text-gray-500">
               {currentSlide + 1} / {slides.length}
             </div>
 
             <button
               onClick={nextSlide}
               disabled={currentSlide === slides.length - 1}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition"
+              className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition text-sm sm:text-base"
             >
-              <span>Next</span>
-              <ChevronRight className="w-5 h-5" />
+              <span className="hidden sm:inline">Next</span>
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
 
-        {/* Slide Indicators */}
         <div className="flex justify-center space-x-2 mt-6">
           {slides.map((_, index) => (
             <button
@@ -396,6 +403,7 @@ const PitchDeck = () => {
               className={`w-3 h-3 rounded-full transition ${
                 index === currentSlide ? 'bg-gray-800' : 'bg-gray-300'
               }`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
