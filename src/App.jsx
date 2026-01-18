@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, DollarSign, Film, Users, Award, Heart } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, DollarSign, Film, Users, Award, TrendingUp, Heart } from 'lucide-react';
 
 const PitchDeck = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -109,14 +109,14 @@ const PitchDeck = () => {
       content: (
         <div className="space-y-4">
           <div className="text-center mb-6">
-            <div className="text-5xl font-bold text-green-600">$185,000</div>
+            <div className="text-5xl font-bold text-green-600">$195,000</div>
             <div className="text-lg text-gray-600">Total Production Budget</div>
-            <div className="text-sm text-gray-500 mt-2">Core animation: $10,000/min | Plus talent, marketing & contingency</div>
+            <div className="text-sm text-gray-500 mt-2">$130K animation production ($10K/min) + $65K talent/marketing/contingency</div>
           </div>
 
           <div className="space-y-3">
             <div className="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
-              <span className="font-semibold">Above the Line (Creative Talent)</span>
+              <span className="font-semibold">Above the Line (Creative Team)</span>
               <span className="text-xl font-bold text-blue-600">$30,000</span>
             </div>
             <div className="text-xs text-gray-600 ml-4 -mt-2">
@@ -128,12 +128,12 @@ const PitchDeck = () => {
               <span className="text-xl font-bold text-green-600">$130,000</span>
             </div>
             <div className="text-xs text-gray-600 ml-4 -mt-2">
-              Animation Team, Character Design, Backgrounds, Compositing, Sound, Music ($10K/min)
+              Animation Team, Character Design, Background Art, Compositing, Sound Design, Music (13 min × $10K/min)
             </div>
 
             <div className="flex justify-between items-center p-4 bg-purple-50 rounded-lg">
               <span className="font-semibold">Marketing & Distribution</span>
-              <span className="text-xl font-bold text-purple-600">$15,000</span>
+              <span className="text-xl font-bold text-purple-600">$20,000</span>
             </div>
             <div className="text-xs text-gray-600 ml-4 -mt-2">
               Festival Submissions, Promotional Materials, Social Media Campaign
@@ -141,10 +141,10 @@ const PitchDeck = () => {
 
             <div className="flex justify-between items-center p-4 bg-amber-50 rounded-lg">
               <span className="font-semibold">Contingency & Miscellaneous</span>
-              <span className="text-xl font-bold text-amber-600">$10,000</span>
+              <span className="text-xl font-bold text-amber-600">$15,000</span>
             </div>
             <div className="text-xs text-gray-600 ml-4 -mt-2">
-              Insurance, Legal, Unexpected Costs (5% buffer)
+              Insurance, Legal, Software, Unexpected Costs
             </div>
           </div>
         </div>
@@ -300,22 +300,22 @@ const PitchDeck = () => {
       content: (
         <div className="text-center space-y-8">
           <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8 rounded-lg">
-            <div className="text-5xl font-bold mb-2">$185,000</div>
+            <div className="text-5xl font-bold mb-2">$195,000</div>
             <div className="text-xl">Total Funding Goal</div>
-            <div className="text-sm mt-2 opacity-90">Core animation: $10K/min + talent, marketing & contingency</div>
+            <div className="text-sm mt-2 opacity-90">$130K animation production + $65K talent/marketing/contingency</div>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div className="p-4 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">$15,000+</div>
+              <div className="text-2xl font-bold text-blue-600">$20,000+</div>
               <div className="text-xs text-gray-600 mt-1">Executive Producer</div>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">$7,500+</div>
+              <div className="text-2xl font-bold text-green-600">$10,000+</div>
               <div className="text-xs text-gray-600 mt-1">Associate Producer</div>
             </div>
             <div className="p-4 bg-purple-50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">$3,500+</div>
+              <div className="text-2xl font-bold text-purple-600">$5,000+</div>
               <div className="text-xs text-gray-600 mt-1">Supporting Investor</div>
             </div>
           </div>
@@ -345,56 +345,49 @@ const PitchDeck = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
-    };
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentSlide]);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-12 min-h-[500px] sm:min-h-[600px] relative">
+        {/* Slide Container */}
+        <div className="bg-white rounded-2xl shadow-2xl p-12 min-h-[600px] relative">
           <div className="mb-8">
-            <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 mb-2">{slides[currentSlide].title}</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-2">{slides[currentSlide].title}</h1>
             {slides[currentSlide].subtitle && (
-              <h2 className="text-xl sm:text-2xl text-gray-600">{slides[currentSlide].subtitle}</h2>
+              <h2 className="text-2xl text-gray-600">{slides[currentSlide].subtitle}</h2>
             )}
           </div>
 
-          <div className="mb-12 sm:mb-16">
+          <div className="mb-12">
             {slides[currentSlide].content}
           </div>
 
-          <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-12 right-4 sm:right-12 flex justify-between items-center">
+          {/* Navigation */}
+          <div className="absolute bottom-8 left-12 right-12 flex justify-between items-center">
             <button
               onClick={prevSlide}
               disabled={currentSlide === 0}
-              className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition text-sm sm:text-base"
+              className="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="hidden sm:inline">Previous</span>
+              <ChevronLeft className="w-5 h-5" />
+              <span>Previous</span>
             </button>
 
-            <div className="text-xs sm:text-sm text-gray-500">
+            <div className="text-sm text-gray-500">
               {currentSlide + 1} / {slides.length}
             </div>
 
             <button
               onClick={nextSlide}
               disabled={currentSlide === slides.length - 1}
-              className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition text-sm sm:text-base"
+              className="flex items-center space-x-2 px-4 py-2 bg-gray-800 text-white rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-gray-700 transition"
             >
-              <span className="hidden sm:inline">Next</span>
-              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span>Next</span>
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
+        {/* Slide Indicators */}
         <div className="flex justify-center space-x-2 mt-6">
           {slides.map((_, index) => (
             <button
@@ -403,7 +396,6 @@ const PitchDeck = () => {
               className={`w-3 h-3 rounded-full transition ${
                 index === currentSlide ? 'bg-gray-800' : 'bg-gray-300'
               }`}
-              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
