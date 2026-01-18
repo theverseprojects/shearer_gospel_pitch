@@ -305,7 +305,7 @@ const PitchDeck = () => {
             <div className="text-sm mt-2 opacity-90">$130K animation production + $65K talent/marketing/contingency</div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-3">
             <div className="p-4 bg-blue-50 rounded-lg">
               <div className="text-2xl font-bold text-blue-600">$20,000+</div>
               <div className="text-xs text-gray-600 mt-1">Executive Producer</div>
@@ -317,6 +317,10 @@ const PitchDeck = () => {
             <div className="p-4 bg-purple-50 rounded-lg">
               <div className="text-2xl font-bold text-purple-600">$5,000+</div>
               <div className="text-xs text-gray-600 mt-1">Supporting Investor</div>
+            </div>
+            <div className="p-4 bg-amber-50 rounded-lg">
+              <div className="text-2xl font-bold text-amber-600">$1,000+</div>
+              <div className="text-xs text-gray-600 mt-1">Believer Patron</div>
             </div>
           </div>
 
